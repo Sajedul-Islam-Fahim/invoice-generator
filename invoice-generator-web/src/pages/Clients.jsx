@@ -144,4 +144,62 @@ export default function Clients() {
       {showForm && (
         <div style={{ backgroundColor: '#1e293b', borderRadius: '12px', padding: '1.5rem', marginBottom: '2rem' }}>
           <h2 style={{ color: 'white', marginTop: 0, marginBottom: '1.5rem' }}>
-            {editClient ? 'Edi
+            {editClient ? 'Edit Client' : 'Create New Client'}
+          </h2>
+          <ClientForm onSuccess={handleFormSuccess} editClient={editClient} />
+        </div>
+      )}
+
+      <input
+        type="text"
+        placeholder="Search clients..."
+        value={search}
+        onChange={(e) => setSearch(e.target.value)}
+        style={{ ...inputStyle, marginBottom: '1.5rem', maxWidth: '300px' }}
+      />
+
+      {loading ? (
+        <p style={{ color: '#94a3b8', textAlign: 'center' }}>Loading clients...</p>
+      ) : clients.length === 0 ? (
+        <div style={{ textAlign: 'center', marginTop: '4rem' }}>
+          <p style={{ color: '#94a3b8', fontSize: '1.1rem' }}>No clients found.</p>
+        </div>
+      ) : (
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(320px, 1fr))', gap: '1rem' }}>
+          {clients.map((client) => (
+            <div key={client.id} style={{
+              backgroundColor: '#1e293b', borderRadius: '12px',
+              padding: '1.25rem', borderLeft: '4px solid #6366f1',
+            }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
+                  <div style={{ backgroundColor: '#6366f122', padding: '0.5rem', borderRadius: '8px' }}>
+                    <User size={20} color="#6366f1" />
+                  </div>
+                  <div>
+                    <h3 style={{ color: 'white', margin: 0 }}>{client.name}</h3>
+                    <p style={{ color: '#94a3b8', margin: 0, fontSize: '0.875rem' }}>{client.email}</p>
+                  </div>
+                </div>
+                <div style={{ display: 'flex', gap: '0.5rem' }}>
+                  <button onClick={() => handleEdit(client)} style={{ background: 'none', border: 'none', cursor: 'pointer', color: '#6366f1' }}>
+                    <Pencil size={16} />
+                  </button>
+                  <button onClick={() => handleDelete(client.id)} style={{ background: 'none', border: 'none', cursor: 'pointer', color: '#ef4444' }}>
+                    <Trash2 size={16} />
+                  </button>
+                </div>
+              </div>
+              {(client.phone || client.city) && (
+                <div style={{ marginTop: '0.75rem', display: 'flex', gap: '1rem', flexWrap: 'wrap' }}>
+                  {client.phone && <span style={{ color: '#94a3b8', fontSize: '0.8rem' }}>📞 {client.phone}</span>}
+                  {client.city && <span style={{ color: '#94a3b8', fontSize: '0.8rem' }}>📍 {client.city}, {client.country}</span>}
+                </div>
+              )}
+            </div>
+          ))}
+        </div>
+      )}
+    </div>
+  );
+}
