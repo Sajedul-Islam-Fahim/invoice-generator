@@ -1,0 +1,15 @@
+# Dependencies
+invoice-generator-api/vendor/
+invoice-generator-web/node_modules/
+
+# Environment files
+invoice-generator-api/.env
+invoice-generator-web/.env
+
+# Laravel specific
+invoice-generator-api/storage/logs/*
+invoice-generator-api/bootstrap/cache/*
+
+# OS
+.DS_Store
+Thumbs.db
